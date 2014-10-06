@@ -1,2 +1,12 @@
 #!/usr/bin/env node
-require('../cli.js').lint(process.argv);
+if (process.argv.length < 3) {
+    console.error("No dekiscript file specified.");
+    process.exit(1);
+}
+var options = {
+    dekiFile: process.argv[2]
+};
+if (process.argv[3]) {
+    options.mtcpExe = process.argv[3];
+}
+require("../cli.js").lint(options);

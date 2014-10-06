@@ -1,12 +1,13 @@
-var exec = require('child_process').execFile;
+var exec = require("child_process").execFile,
+    path = require("path");
 module.exports = {
-    lint: function(args) {
-        var file = args[2];
-        var linterBin = '/Users/aaronmars/dev/mindtouch/dev/Deki/web/bin/mtcp.exe';
-        exec('mono', [
+    lint: function(options) {
+        var linterPath = options.mtcpExe || process.env.MINDTOUCH_MTCPEXE_PATH,
+            linterBin = path.join(linterPath, "mtcp.exe");
+        exec("mono", [
             linterBin,
-            'dekiscriptlint',
-            '-f', file
+            "dekiscriptlint",
+            "-f", options.dekiFile
         ], {}, function(err, stdout) {
             console.log(stdout);
         });
